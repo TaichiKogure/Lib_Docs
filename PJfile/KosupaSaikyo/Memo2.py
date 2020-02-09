@@ -1,3 +1,5 @@
+# Quoted from Nikkei Software 2019.11 page.96
+
 import pygame
 from pygame.locals import *
 import sys
@@ -83,7 +85,7 @@ class Agent:
                 self.vx_c = (tx - self.x) / d
                 self.vy_c = (ty - self.y) / d
         else:
-                self.vx_c, self.vy_c = self.vx, self.vy
+            self.vx_c, self.vy_c = self.vx, self.vy
 
     def rule(self, agent_list, r_s, r_a, r_c):
         # 他エージェントの距離を求める
