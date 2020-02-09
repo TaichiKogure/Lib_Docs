@@ -32,7 +32,7 @@ class Agent:
     def draw(self, screen):
         x, y = int(self.x), int(self.y)
         # 小さな赤い丸を描く
-        pygame.draw.circle(screen, (255, 100, 0), (x, y), 4)
+        pygame.draw.circle(screen, (255, 100, 0), (x, y), 5)
 
     # 分離のルール
     def separation(self, r_s):
@@ -123,14 +123,14 @@ rule_on = 1  # ルールの適応/非適応に使うフラグ
 
 while True:  # 無限ループ
 
-    clock.tick(60)  # 60fpsに設定
+    clock.tick(200)  # 60fpsに設定
     # ウィンドウを白で塗りつぶす
     screen.fill((255, 255, 255))
 
     # 各エージェントを処理する
     for a in agent_list:
         if rule_on == 1:
-            a.rule(agent_list, 5, 20, 80)
+            a.rule(agent_list, 5, 20, 60)
         a.update(WINDOW_W, WINDOW_H)
         a.draw(screen)
 
