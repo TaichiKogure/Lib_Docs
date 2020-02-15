@@ -18,8 +18,12 @@ else:
     print("win")
 
 # %%
+<<<<<<< HEAD
 # Janken　Class　を使った場合,GameFlowのPlayメソッドがゲーム全体の流れになっている。
 # 　ただじゃんけん以外のゲームにもGameFlowクラスを使おうと思ったら　Playメソッド中のJankenクラスを全部修正する必要が出てくる。
+=======
+# Janken　Class　を使った場合
+>>>>>>> origin/master
 
 import random
 
@@ -61,6 +65,7 @@ class GameFlow:
 
 
 GameFlow.play()
+<<<<<<< HEAD
 
 # %%
 # GameFlow classからJankanを全部消して　代わりにgameっていう変数をつけている。
@@ -105,3 +110,5 @@ class GameFlow:
 game = Janken2()
 flow = GameFlow(game)
 flow.play()
+=======
+>>>>>>> origin/master
