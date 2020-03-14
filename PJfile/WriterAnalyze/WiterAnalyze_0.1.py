@@ -29,4 +29,12 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 
 #　文章データの読み込み
+try:
+    from google.colab implort drive#Google Driveからファイルを読み込むための外部モジュール
+    drive.mount('./gdrive')
+    #base_dir上に各作者のディレクトリがあることを想定
+    #base_dir = './gdrive/My Drive/Colab Notebooks'
+    #base_dir =  'C:\Users\auror\PycharmProjects\Python3.7Gre\PJfile\WriterAnalyze'
 
+except ModuleNotFoundErr:
+    base_dir = './'
