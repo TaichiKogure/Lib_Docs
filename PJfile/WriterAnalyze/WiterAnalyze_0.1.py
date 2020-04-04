@@ -3,6 +3,7 @@ import torch
 
 torch.cuda.is_available()
 
+
 # %%
 import os
 import glob
@@ -12,77 +13,77 @@ import re
 import random
 from itertools import chain
 
-# Œ`‘Ô‘f‰ğÍ—p‚ÌŠO•”ƒ‚ƒWƒ…[ƒ‹
+#
 from janome.tokenizer import Tokenizer
 from gensim.models import Word2Vec
 
-# LSTM—p‚Ìƒ‚ƒWƒ…[ƒ‹
+#
 import copy
 import numpy as np
-from numpy.random import rand  # ƒ‰ƒ“ƒ_ƒ€‚ÈƒxƒNƒgƒ‹‚ğì‚é‚½‚ß‚ÌŠÖ”
-from tqdm import tqdm  # ƒ‹[ƒv‚Ìi’»‚ğ¦‚·ƒ‚ƒWƒ…[ƒ‹
-import torch  # [‘wŠwK—p‚Ìƒ‚ƒWƒ…[ƒ‹
-import torch.nn as nn  # ƒjƒ…[ƒ‰ƒ‹ƒlƒbƒgƒ[ƒN—p‚Ìƒ‚ƒWƒ…[ƒ‹
-import torch.nn.functional as F  # Šˆ«‰»ŠÖ”—p‚Ìƒ‚ƒWƒ…[ƒ‹
-import torch.optim as optim  # Pytorch‚ÌƒIƒvƒeƒBƒ}ƒCƒU[
+from numpy.random import rand  #
+from tqdm import tqdm  #
+import torch  #
+import torch.nn as nn  #
+import torch.nn.functional as F  #
+import torch.optim as optim  #
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 
-#@•¶Íƒf[ƒ^‚Ì“Ç‚İ‚İ
+#
 try:
-    from google.colab implort drive#Google Drive‚©‚çƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚Ş‚½‚ß‚ÌŠO•”ƒ‚ƒWƒ…[ƒ‹
+    from google.colab implort drive#Google Driveã‚°ãƒ¼ã‚°ãƒ«ãƒ‰ãƒ©ã‚¤ãƒ–ã‹ã‚‰å¼•ãå‡ºã™ã¨ã
     drive.mount('./gdrive')
-    #base_dirã‚ÉŠeìÒ‚ÌƒfƒBƒŒƒNƒgƒŠ‚ª‚ ‚é‚±‚Æ‚ğ‘z’è
+    #base_dir
     #base_dir = './gdrive/My Drive/Colab Notebooks'
     #base_dir =  'C:\Users\auror\PycharmProjects\Python3.7Gre\PJfile\WriterAnalyze'
 
 except ModuleNotFoundErr:
     base_dir = './'
-#•¶Í‚©‚çƒmƒCƒY‚ğÁ‚·
-RUBY_PATTERN = re.compile('@s.*?t')#‚é‚Ñ‚Ì³‹K•\Œ»ƒpƒ^[ƒ“
-ADDITION_PATTERN = re.compile('[.*\]| @@ i.*\'j')#•¶Í’†‚Ì•â‘«î•ñ‚Ìƒpƒ^[ƒ“
-ALPHABET_PATTERN = re.compile('[a-zA-Z]')#ƒAƒ‹ƒtƒ@ƒxƒbƒg‚Ì³‹K•\Œ»ƒoƒ^[ƒ“
+#ã‚‹ã³ãªã©ã‚’ä¿®æ­£ã™ã‚‹
+RUBY_PATTERN = re.compile('ï¿½@ï¿½s.*?ï¿½t')#
+ADDITION_PATTERN = re.compile('[.*\]| ï¿½@ï¿½@ ï¿½i.*\'ï¿½j')#
+ALPHABET_PATTERN = re.compile('[a-zA-Z]')#
 
 def delete_newline_char(line):
-    '''‰üsƒR[ƒh‚ğ‚·‚×‚Äíœ‚·‚é'''
+    ''''''
     return line.replace('\r', '').replace('\n','')
 
 def remove_ruby(line):
-    '''‚é‚Ñ‚ğíœ‚·‚é'''
+    ''''''
     return RUBY_PATTERN.sub('', line)
 
 def remove_additions(line):
-    '''•â‘«î•ñ‚ğÁ‚·'''
+    ''''''
     return ADDITION_PATTERN.sub('', line)
 
 def remove_escape_char(line):
-    '''ƒGƒXƒP[ƒv‚³‚ê‚½•¶š‚ğÁ‚·'''
+    ''''''
     return line.replace('\u3000', '')
 
 def remove_symbols(line):
-    '''‹L†‚ğÁ‚·'''
+    ''''''
     line = line.replace('-', '').replace(':', '').replace('/', '').replace('(', '').replace('(','')
     return line
 
 def remove_alphabets(line):
-    '''ƒAƒ‹ƒtƒ@ƒxƒbƒg‚ğÁ‚·'''
+    ''''''
     return ALPHABET_PATTERN.sub('', line)
 
 def separate_line_with_puncs(line):
-    '''‹å“_‚Å‹æØ‚Á‚½•¶‚ğ“f‚«o‚·'''
+    ''''''
     for line in lines:
-        for sentence in line.split('B'):
+        for sentence in line.split('B'):
             yield sentence
 
 def preprocess(data):
-    '''•¶Í‚ğ‘Oˆ—‚µ‚Ä•¶‚ÌƒŠƒXƒg‚É‚·‚é'''
+    ''''''
     lines = map(delete_newline_char, data)
     lines = map(remove_ruby, lines)
     lines = map(remove_additions, lines)
     lines = map(remove_escape_char, lines)
     lines = map(remove_symbols, lines)
     sentences = separate_line_with_puncs(lines)
-    #'''•¶Í‚ª‚©‚ç‚Ì‚à‚Ì‚ğœ‹‚·‚é'''
+    #''''''
     sentences = filter(lambda  x: len(x), sentences)
     return list(sentences)
 
