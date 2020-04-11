@@ -2,7 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 
-# 円周率をモンテカルロ法で近似してみる
+# 円周率をモンテカルロ法で近似してみる.
+
 m = 0
 num = []
 pi = []
