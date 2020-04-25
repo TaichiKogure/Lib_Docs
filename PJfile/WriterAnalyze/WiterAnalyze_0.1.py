@@ -87,4 +87,5 @@ def preprocess(data):
     sentences = filter(lambda  x: len(x), sentences)
     return list(sentences)
 
-Remake from Linux PC
+#to read training data and test data
+WRITERS =
