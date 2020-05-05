@@ -89,4 +89,7 @@ def preprocess(data):
 
 #to read training data and test data
 WRITERS = ['natsume','dazai','akutagawa','fukuzawa','mori']#作者のリスト
-train
+train_sentences = dict()#Dictionary of Training data, key = Authors name , contents = list of Sentences
+test_sentences = dict()#Dictionary of test data
+for writer in WRITERS:
+    if not os.path.isdir(os.path.join(
