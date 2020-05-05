@@ -88,4 +88,5 @@ def preprocess(data):
     return list(sentences)
 
 #to read training data and test data
-WRITERS =
+WRITERS = ['natsume','dazai','akutagawa','fukuzawa','mori']#作者のリスト
+train
