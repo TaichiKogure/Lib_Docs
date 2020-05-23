@@ -92,4 +92,10 @@ WRITERS = ['natsume','dazai','akutagawa','fukuzawa','mori']#作者のリスト
 train_sentences = dict()#Dictionary of Training data, key = Authors name , contents = list of Sentences
 test_sentences = dict()#Dictionary of test data
 for writer in WRITERS:
-    if not os.path.isdir(os.path.join(
+    if not os.path.isdir(os.path.join(base_dir, writer)):
+        continue
+    train_sentences[writer] = list()
+    test_sentences[writer] = list()
+    #各ディレクトリの全テキストファイルを取得
+    files = glob.glob(os.path.join(base_dir, writer , '*.txt'))
+    #上で得たテキストファイルを4：1で訓練データとテストデータにする
