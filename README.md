@@ -1,4 +1,1 @@
-# Python3.7Gre
-py3.7withoutAnaconda
-Python 3.8がいまいち対応していないモジュールがありそうだったのでこっちをメインにする。
-Anaconda連携だと追加モジュールでエラー吐くのがいたのでAnacondaなしのProject。
+# とりあえずPychrmやらColabやらで使ってみる。
